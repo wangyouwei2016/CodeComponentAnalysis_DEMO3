@@ -147,7 +147,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>5.5.0</version>
+            <version>5.5.7</version>
         </dependency>
 
         <!-- OWASP Top 10 2021 A5 - 破坏性访问控制 -->
