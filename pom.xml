@@ -1,0 +1,282 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>test</groupId>
+    <artifactId>demo-junit</artifactId>
+    <version>1.0.2-SNAPSHOT</version>
+
+    <packaging>war</packaging>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/devops-ws/learn-pipeline-java</url>
+        </snapshotRepository>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/devops-ws/learn-pipeline-java</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <configuration>
+                            <attachClasses>true</attachClasses>
+                            <webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+                        </configuration>
+                        <goals>
+                            <goal>inplace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-a-jar</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>
+                                cli.App
+                            </mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>Add-2-local-repository</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <packaging>jar</packaging>
+                            <groupId>test</groupId>
+                            <artifactId>demo-junit</artifactId>
+                            <version>1.0.1-20170422</version>
+                            <file>${project.build.directory}/${artifactId}-${version}.jar</file>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>attach-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/${artifactId}-${version}.jar</file>
+                                    <type>jar</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.20</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- OWASP Top 10 2021 A2 - 破坏性认证 -->
+        <!-- 包含安全的身份验证库，例如Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+
+        <!-- OWASP Top 10 2021 A5 - 破坏性访问控制 -->
+        <!-- 包含安全的授权库，例如Apache Shiro -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+
+        <!-- OWASP Top 10 2021 A8 - 不安全的反序列化 -->
+        <!-- 使用安全的序列化/反序列化库 -->
+        <!-- 示例: Jackson Databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.5</version>
+        </dependency>
+
+        <!-- 潜在风险: Apache Tomcat过低 -->
+        <dependency>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-catalina</artifactId>
+        <version>8.0.8</version>
+        </dependency>         
+
+        <!-- Log4j2 (known for CVE-2021-44228, a critical RCE vulnerability) -->  
+        <!-- Using a vulnerable version (note: this is HIGHLY UNSAFE and should be avoided) -->  
+        <dependency>  
+            <groupId>org.apache.logging.log4j</groupId>  
+            <artifactId>log4j-core</artifactId>  
+            <version>2.14.1</version> <!-- Vulnerable version -->  
+        </dependency>  
+  
+        <!-- Jackson Databind (known for CVEs related to polymorphic deserialization) -->  
+        <!-- Using a vulnerable version -->  
+        <dependency>  
+            <groupId>com.fasterxml.jackson.core</groupId>  
+            <artifactId>jackson-databind</artifactId>  
+            <version>2.9.10</version> <!-- Vulnerable version -->  
+        </dependency>  
+  
+        <!-- Spring Framework (potential for various vulnerabilities depending on version) -->  
+        <!-- Using a potentially vulnerable version -->  
+        <dependency>  
+            <groupId>org.springframework</groupId>  
+            <artifactId>spring-webmvc</artifactId>  
+            <version>5.2.0.RELEASE</version> <!-- Potentially vulnerable version -->  
+        </dependency>  
+  
+        <!-- Hibernate ORM (potential for SQL injection if used incorrectly) -->  
+        <!-- Using an older version that might not include latest security patches -->  
+        <dependency>  
+            <groupId>org.hibernate</groupId>  
+            <artifactId>hibernate-core</artifactId>  
+            <version>5.4.0.Final</version> <!-- Older version -->  
+        </dependency>  
+
+        <dependency>  
+            <groupId>org.apache.commons</groupId>  
+            <artifactId>commons-collections4</artifactId>  
+            <version>4.4</version> <!-- Using a vulnerable version -->  
+        </dependency>  
+  
+        <!-- Struts2 (known for multiple RCE vulnerabilities) -->  
+        <dependency>  
+            <groupId>org.apache.struts</groupId>  
+            <artifactId>struts2-core</artifactId>  
+            <version>2.5.30</version> <!-- Using a vulnerable version -->  
+        </dependency>  
+  
+        <!-- Apache Shiro (known for authentication and authorization bypasses) -->  
+        <dependency>  
+            <groupId>org.apache.shiro</groupId>  
+            <artifactId>shiro-core</artifactId>  
+            <version>1.8.0</version> <!-- Using a vulnerable version -->  
+        </dependency>  
+          
+        <!-- MyBatis (potential for SQL injection if queries are not parameterized correctly) -->  
+        <dependency>  
+            <groupId>org.mybatis</groupId>  
+            <artifactId>mybatis</artifactId>  
+            <version>3.5.9</version> <!-- Using a vulnerable version -->  
+        </dependency>  
+          
+        <!-- Tomcat Embed (potential for various vulnerabilities depending on version) -->  
+        <dependency>  
+            <groupId>org.apache.tomcat.embed</groupId>  
+            <artifactId>tomcat-embed-core</artifactId>  
+            <version>9.0.56</version> <!-- Using a vulnerable version -->  
+        </dependency>  
+          
+        <!-- Jetty (another servlet container with potential vulnerabilities) -->  
+        <dependency>  
+            <groupId>org.eclipse.jetty</groupId>  
+            <artifactId>jetty-server</artifactId>  
+            <version>9.4.44.v20210927</version> <!-- Using a vulnerable version -->  
+        </dependency>  
+
+        <!-- Log4j2 (known for CVE-2021-44228, a critical RCE vulnerability) -->  
+        <!-- Using a vulnerable version (note: this is HIGHLY UNSAFE and should be avoided) -->  
+        <dependency>  
+            <groupId>org.apache.logging.log4j</groupId>  
+            <artifactId>log4j-core</artifactId>  
+            <version>2.14.1</version> <!-- Vulnerable version -->  
+        </dependency>  
+  
+        <!-- Jackson Databind (known for CVEs related to polymorphic deserialization) -->  
+        <!-- Using a vulnerable version -->  
+        <dependency>  
+            <groupId>com.fasterxml.jackson.core</groupId>  
+            <artifactId>jackson-databind</artifactId>  
+            <version>2.9.10</version> <!-- Vulnerable version -->  
+        </dependency>  
+  
+        <!-- Spring Framework (potential for various vulnerabilities depending on version) -->  
+        <!-- Using a potentially vulnerable version -->  
+        <dependency>  
+            <groupId>org.springframework</groupId>  
+            <artifactId>spring-webmvc</artifactId>  
+            <version>5.2.0.RELEASE</version> <!-- Potentially vulnerable version -->  
+        </dependency>  
+  
+        <!-- Hibernate ORM (potential for SQL injection if used incorrectly) -->  
+        <!-- Using an older version that might not include latest security patches -->  
+        <dependency>  
+            <groupId>org.hibernate</groupId>  
+            <artifactId>hibernate-core</artifactId>  
+            <version>5.4.0.Final</version> <!-- Older version -->  
+        </dependency>          
+    </dependencies>
+</project>
