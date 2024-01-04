@@ -155,7 +155,7 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
-            <version>1.7.1</version>
+            <version>1.10.0</version>
         </dependency>
 
         <!-- OWASP Top 10 2021 A8 - 不安全的反序列化 -->
@@ -223,7 +223,7 @@
         <dependency>  
             <groupId>org.apache.shiro</groupId>  
             <artifactId>shiro-core</artifactId>  
-            <version>1.8.0</version> <!-- Using a vulnerable version -->  
+            <version>1.10.0</version> <!-- Using a vulnerable version -->  
         </dependency>  
           
         <!-- MyBatis (potential for SQL injection if queries are not parameterized correctly) -->  
