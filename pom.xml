@@ -155,7 +155,7 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
-            <version>1.7.1</version>
+            <version>1.13.0</version>
         </dependency>
 
         <!-- OWASP Top 10 2021 A8 - 不安全的反序列化 -->
@@ -164,14 +164,14 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.12.5</version>
+            <version>2.12.7.1</version>
         </dependency>
 
         <!-- 潜在风险: Apache Tomcat过低 -->
         <dependency>
         <groupId>org.apache.tomcat</groupId>
         <artifactId>tomcat-catalina</artifactId>
-        <version>8.0.8</version>
+        <version>8.5.96</version>
         </dependency>         
 
         <!-- Log4j2 (known for CVE-2021-44228, a critical RCE vulnerability) -->  
@@ -187,7 +187,7 @@
         <dependency>  
             <groupId>com.fasterxml.jackson.core</groupId>  
             <artifactId>jackson-databind</artifactId>  
-            <version>2.9.10</version> <!-- Vulnerable version -->  
+            <version>2.12.7.1</version> <!-- Vulnerable version -->  
         </dependency>  
   
         <!-- Spring Framework (potential for various vulnerabilities depending on version) -->  
@@ -216,14 +216,14 @@
         <dependency>  
             <groupId>org.apache.struts</groupId>  
             <artifactId>struts2-core</artifactId>  
-            <version>2.5.30</version> <!-- Using a vulnerable version -->  
+            <version>2.5.33</version> <!-- Using a vulnerable version -->  
         </dependency>  
   
         <!-- Apache Shiro (known for authentication and authorization bypasses) -->  
         <dependency>  
             <groupId>org.apache.shiro</groupId>  
             <artifactId>shiro-core</artifactId>  
-            <version>1.8.0</version> <!-- Using a vulnerable version -->  
+            <version>1.13.0</version> <!-- Using a vulnerable version -->  
         </dependency>  
           
         <!-- MyBatis (potential for SQL injection if queries are not parameterized correctly) -->  
@@ -237,14 +237,14 @@
         <dependency>  
             <groupId>org.apache.tomcat.embed</groupId>  
             <artifactId>tomcat-embed-core</artifactId>  
-            <version>9.0.56</version> <!-- Using a vulnerable version -->  
+            <version>9.0.83</version> <!-- Using a vulnerable version -->  
         </dependency>  
           
         <!-- Jetty (another servlet container with potential vulnerabilities) -->  
         <dependency>  
             <groupId>org.eclipse.jetty</groupId>  
             <artifactId>jetty-server</artifactId>  
-            <version>9.4.44.v20210927</version> <!-- Using a vulnerable version -->  
+            <version>9.4.51.v20230217</version> <!-- Using a vulnerable version -->  
         </dependency>  
 
         <!-- Log4j2 (known for CVE-2021-44228, a critical RCE vulnerability) -->  
@@ -260,7 +260,7 @@
         <dependency>  
             <groupId>com.fasterxml.jackson.core</groupId>  
             <artifactId>jackson-databind</artifactId>  
-            <version>2.9.10</version> <!-- Vulnerable version -->  
+            <version>2.12.7.1</version> <!-- Vulnerable version -->  
         </dependency>  
   
         <!-- Spring Framework (potential for various vulnerabilities depending on version) -->  
